@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kimbs Bot Business — AI WhatsApp Bots for Tanzania</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a8a5a;
+    --green-light: #e6f5ee;
+    --green-dark: #0f5e3c;
+    --dark: #0e0e0e;
+    --dark2: #1a1a1a;
+    --dark3: #242424;
+    --text: #f0f0f0;
+    --text-muted: #888;
+    --accent: #25d366;
+    --accent2: #00c853;
+    --border: rgba(255,255,255,0.08);
+    --card-bg: rgba(255,255,255,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(14,14,14,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .logo span { color: var(--text); }
+
+  nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  nav ul a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #000 !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    transition: opacity 0.2s !important;
+  }
+
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(37,211,102,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-bg2 {
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(26,138,90,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.2);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .hero-badge .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 .green { color: var(--accent); }
+
+  .hero p {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+  /* PHONE MOCKUP */
+  .phone-mockup {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .phone {
+    width: 280px;
+    background: var(--dark2);
+    border-radius: 40px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+
+  .phone-header {
+    background: var(--green-dark);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .phone-avatar {
+    width: 40px; height: 40px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #000;
+  }
+
+  .phone-name { font-size: 14px; font-weight: 500; }
+  .phone-status { font-size: 11px; color: rgba(255,255,255,0.6); }
+
+  .phone-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .bubble {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .bubble.received {
+    background: var(--dark3);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+    color: var(--text);
+  }
+
+  .bubble.sent {
+    background: #005c4b;
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+    color: white;
+  }
+
+  .bubble-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  /* STATS */
+  .stats {
+    padding: 60px 40px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stats-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -2px;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 100px 40px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .section-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 500px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .services-grid {
+    max-width: 1100px;
+    margin: 60px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .service-card:hover {
+    border-color: rgba(37,211,102,0.3);
+    transform: translateY(-4px);
+  }
+
+  .service-icon {
+    width: 48px; height: 48px;
+    background: rgba(37,211,102,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .service-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .service-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* PRICING */
+  .pricing {
+    padding: 100px 40px;
+    background: var(--dark2);
+  }
+
+  .pricing-grid {
+    max-width: 1100px;
+    margin: 60px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .pricing-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px;
+    position: relative;
+  }
+
+  .pricing-card.featured {
+    border-color: var(--accent);
+    background: rgba(37,211,102,0.05);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #000;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .pricing-name {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .pricing-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .pricing-price span {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0;
+  }
+
+  .pricing-period {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .pricing-features li .check {
+    width: 18px; height: 18px;
+    background: rgba(37,211,102,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .pricing-features li.active { color: var(--text); }
+
+  /* HOW IT WORKS */
+  .how {
+    padding: 100px 40px;
+  }
+
+  .how-grid {
+    max-width: 1100px;
+    margin: 60px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    position: relative;
+  }
+
+  .how-card {
+    text-align: center;
+  }
+
+  .how-number {
+    width: 56px; height: 56px;
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 0 auto 20px;
+  }
+
+  .how-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .how-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 100px 40px;
+    background: var(--dark2);
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: rgba(37,211,102,0.4);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: var(--dark3); }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contact-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .contact-item-icon {
+    width: 44px; height: 44px;
+    background: rgba(37,211,102,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .contact-item h4 {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+
+  .contact-item p {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  /* SECTION WRAPPER */
+  .section-header {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* WHATSAPP FLOAT */
+  .wa-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 28px;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+    z-index: 99;
+    transition: transform 0.2s;
+  }
+
+  .wa-float:hover { transform: scale(1.1); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left { animation: fadeUp 0.8s ease forwards; }
+  .hero-right { animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
+
+  /* TYPING ANIMATION */
+  @keyframes typing {
+    0%, 60%, 100% { opacity: 0.3; }
+    30% { opacity: 1; }
+  }
+
+  .typing-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+
+  .typing-dot:nth-child(1) { animation: typing 1.4s infinite 0s; }
+  .typing-dot:nth-child(2) { animation: typing 1.4s infinite 0.2s; }
+  .typing-dot:nth-child(3) { animation: typing 1.4s infinite 0.4s; }
+
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    nav { padding: 16px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-content { grid-template-columns: 1fr; gap: 40px; }
+    .hero h1 { font-size: 38px; }
+    .hero-right { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-inner { grid-template-columns: 1fr; }
+    .services, .pricing, .how, .contact { padding: 60px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Kimbs<span>Bot</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg2"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="dot"></div>
+        Available in Tanzania
+      </div>
+      <h1>AI Bots for Your <span class="green">WhatsApp</span> Business</h1>
+      <p>We build intelligent WhatsApp bots that serve your customers 24/7, track your business finances, and send you daily reports — all while you sleep.</p>
+      <div class="hero-buttons">
+        <a href="https://wa.me/255749594915" class="btn-primary">💬 Chat on WhatsApp</a>
+        <a href="#pricing" class="btn-secondary">View Pricing →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="phone-mockup">
+        <div class="phone">
+          <div class="phone-header">
+            <div class="phone-avatar">MP</div>
+            <div>
+              <div class="phone-name">Mama Pima Restaurant</div>
+              <div class="phone-status">● Online</div>
+            </div>
+          </div>
+          <div class="phone-body">
+            <div class="bubble sent">Habari, mna nini leo?</div>
+            <div class="bubble received">
+              Karibu! 🍽️ Leo tuna special ya Ugali na Mchuzi wa Samaki.<br><br>
+              Menyu yetu:<br>
+              • Ugali na Nyama — 5,000 TZS<br>
+              • Pilau — 7,000 TZS<br>
+              • Biryani — 8,000 TZS<br><br>
+              Je, unataka kuagiza?
+              <div class="bubble-time">09:14 ✓✓</div>
+            </div>
+            <div class="bubble sent">Nataka pilau 2 na soda</div>
+            <div class="bubble received">
+              ✅ Order yako:<br>
+              • Pilau x2 = 14,000 TZS<br>
+              • Soda x1 = 1,000 TZS<br>
+              • Delivery = 2,000 TZS<br>
+              <strong>Jumla: 17,000 TZS</strong>
+              <div class="bubble-time">09:15 ✓✓</div>
+            </div>
+            <div class="bubble received">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-grid">
+    <div>
+      <div class="stat-number">24/7</div>
+      <div class="stat-label">Always online, never sleeps</div>
+    </div>
+    <div>
+      <div class="stat-number">&lt;2s</div>
+      <div class="stat-label">Average reply time</div>
+    </div>
+    <div>
+      <div class="stat-number">2</div>
+      <div class="stat-label">Languages: Swahili & English</div>
+    </div>
+    <div>
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Customers served simultaneously</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">Everything your business needs</h2>
+    <p class="section-sub">From customer service to accounting — one bot handles it all.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <h3>AI Customer Bot</h3>
+      <p>Smart WhatsApp bot that answers customer questions, shows your menu, handles orders, and gives delivery info — automatically in Swahili or English.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Business Dashboard</h3>
+      <p>Live dashboard on your phone showing daily income, expenses, profit and loss. See exactly how your business is doing at any time.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💰</div>
+      <h3>WhatsApp Accounting</h3>
+      <p>Just type what you bought or sold on WhatsApp. The bot records it, calculates profit, and sends you a full report every evening.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📄</div>
+      <h3>Bank-Ready Reports</h3>
+      <p>Professional PDF financial reports generated monthly. Structured records that banks accept for loan applications.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔔</div>
+      <h3>Automatic Daily Reports</h3>
+      <p>Every night at your chosen time, the bot sends a full summary of the day's sales, expenses and profit directly to your WhatsApp.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <h3>Multi-Platform</h3>
+      <p>Connect your bot to WhatsApp, Instagram DMs, and your website. One system serving customers everywhere you are.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-header">
+    <div class="section-label">The Process</div>
+    <h2 class="section-title">Live in 48 hours</h2>
+    <p class="section-sub">We handle the technical setup. You just share the number with your customers.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-number">1</div>
+      <h3>Tell us about your business</h3>
+      <p>Share your menu, prices, location, delivery areas and any other info your customers need.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">2</div>
+      <h3>We build your bot</h3>
+      <p>We set up your AI bot, connect it to WhatsApp, and customize it with your business data.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">3</div>
+      <h3>You review and approve</h3>
+      <p>We demo the bot to you, make any changes you want, and get your approval before going live.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">4</div>
+      <h3>Go live!</h3>
+      <p>Share the WhatsApp number with your customers. Your bot starts serving them 24/7 immediately.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-header">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple, honest pricing</h2>
+    <p class="section-sub">No hidden fees. Cancel anytime. Pay via M-Pesa.</p>
+  </div>
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-name">Starter</div>
+      <div class="pricing-price">40<span>$</span></div>
+      <div class="pricing-period">per month + $80 setup fee</div>
+      <ul class="pricing-features">
+        <li class="active"><span class="check">✓</span> WhatsApp customer bot</li>
+        <li class="active"><span class="check">✓</span> Menu & order handling</li>
+        <li class="active"><span class="check">✓</span> Swahili & English</li>
+        <li class="active"><span class="check">✓</span> Unlimited customers</li>
+        <li><span class="check">–</span> Business dashboard</li>
+        <li><span class="check">–</span> Accounting via WhatsApp</li>
+        <li><span class="check">–</span> Daily reports</li>
+      </ul>
+      <a href="https://wa.me/255749594915?text=I want the Starter plan" class="btn-secondary" style="width:100%; justify-content:center;">Get Started</a>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="pricing-name">Professional</div>
+      <div class="pricing-price">80<span>$</span></div>
+      <div class="pricing-period">per month + $150 setup fee</div>
+      <ul class="pricing-features">
+        <li class="active"><span class="check">✓</span> Everything in Starter</li>
+        <li class="active"><span class="check">✓</span> Business dashboard</li>
+        <li class="active"><span class="check">✓</span> Accounting via WhatsApp</li>
+        <li class="active"><span class="check">✓</span> Daily reports at 9PM</li>
+        <li class="active"><span class="check">✓</span> Monthly PDF reports</li>
+        <li class="active"><span class="check">✓</span> Priority support</li>
+        <li><span class="check">–</span> Instagram bot</li>
+      </ul>
+      <a href="https://wa.me/255749594915?text=I want the Professional plan" class="btn-primary" style="width:100%; justify-content:center;">Get Started</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-name">Enterprise</div>
+      <div class="pricing-price">120<span>$</span></div>
+      <div class="pricing-period">per month + $300 setup fee</div>
+      <ul class="pricing-features">
+        <li class="active"><span class="check">✓</span> Everything in Professional</li>
+        <li class="active"><span class="check">✓</span> Instagram bot</li>
+        <li class="active"><span class="check">✓</span> Website chatbot</li>
+        <li class="active"><span class="check">✓</span> Bank-ready loan reports</li>
+        <li class="active"><span class="check">✓</span> Branded WhatsApp number</li>
+        <li class="active"><span class="check">✓</span> Dedicated support line</li>
+        <li class="active"><span class="check">✓</span> Monthly strategy call</li>
+      </ul>
+      <a href="https://wa.me/255749594915?text=I want the Enterprise plan" class="btn-secondary" style="width:100%; justify-content:center;">Get Started</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="section-label">Contact Us</div>
+      <h2 class="section-title">Ready to grow<br>your business?</h2>
+      <p class="section-sub" style="margin-bottom: 48px;">Send us a message and we'll get back to you within 2 hours. Available Monday–Saturday, 8AM–8PM EAT.</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div>
+            <h4>WhatsApp</h4>
+            <p>+255 749 594 915</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div>
+            <h4>Email</h4>
+            <p>tumainikimboi0@gmail.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <h4>Location</h4>
+            <p>Dar es Salaam, Tanzania</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="e.g. John Magufuli">
+      </div>
+      <div class="form-group">
+        <label>WhatsApp Number</label>
+        <input type="tel" placeholder="+255 7XX XXX XXX">
+      </div>
+      <div class="form-group">
+        <label>Business Type</label>
+        <select>
+          <option>Restaurant / Food</option>
+          <option>Pharmacy / Dawa</option>
+          <option>Clinic / Hospital</option>
+          <option>Shop / Duka</option>
+          <option>Hotel / Accommodation</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Package Interested In</label>
+        <select>
+          <option>Starter — $40/month</option>
+          <option>Professional — $80/month</option>
+          <option>Enterprise — $120/month</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message (optional)</label>
+        <textarea placeholder="Tell us about your business..."></textarea>
+      </div>
+      <a href="https://wa.me/255749594915?text=Hello, I want to set up a WhatsApp bot for my business" class="btn-primary" style="justify-content:center;">
+        Send via WhatsApp →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Kimbs Bot</div>
+  <p>© 2026 Kimbs Bot Business. Built in Tanzania 🇹🇿</p>
+  <p style="font-size: 13px; color: var(--text-muted);">Powered by AI</p>
+</footer>
+
+<!-- WHATSAPP FLOAT BUTTON -->
+<a href="https://wa.me/255749594915" class="wa-float" target="_blank">💬</a>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
