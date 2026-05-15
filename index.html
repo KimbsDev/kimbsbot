@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KimbsBot — AI Bots for Any Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -12,7 +12,15 @@ body{
   font-family:'Inter',sans-serif;
   background:#0a0015;
   color:#fff;
+  /* Prevent horizontal scrolling */
   overflow-x:hidden;
+  width: 100%;
+}
+
+/* MOBILE FIX: Ensure elements don't overflow the screen width */
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
 }
 
 /* FLOATING KIMBS TEXT */
@@ -34,6 +42,12 @@ body{
   animation:floatAround linear infinite;
   user-select:none;
 }
+
+/* Ensure background text doesn't cause horizontal scroll */
+@media (max-width: 600px) {
+  .float-text { font-size: 80px; }
+}
+
 .ft1{top:5%;animation-duration:25s;animation-delay:0s;}
 .ft2{top:25%;animation-duration:30s;animation-delay:-8s;}
 .ft3{top:45%;animation-duration:22s;animation-delay:-15s;}
@@ -518,13 +532,13 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
 .d5{transition-delay:0.5s;}
 .d6{transition-delay:0.6s;}
 
-/* MOBILE */
+/* MOBILE FIXES */
 @media(max-width:900px){
   nav{padding:14px 20px;}
   .nav-links{display:none;}
   .hero{padding:100px 24px 60px;}
-  .hero-title{font-size:42px;}
-  .hero-sub{font-size:16px;}
+  .hero-title{font-size:36px;} /* Adjusted for better fit */
+  .hero-sub{font-size:15px;}
   .platforms,
   .services,
   .how,
@@ -537,13 +551,17 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   .pricing-grid{grid-template-columns:1fr;}
   .contact-wrap{grid-template-columns:1fr;}
   footer{padding:32px 24px;flex-direction:column;text-align:center;}
-  .section-title{font-size:30px;}
+  .section-title{font-size:28px;}
+  
+  /* Ensure form rows don't break layout */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- FLOATING KIMBS BACKGROUND -->
 <div class="floating-bg">
   <div class="float-text ft1">KIMBS</div>
   <div class="float-text ft2">KIMBSBOT</div>
@@ -552,12 +570,10 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   <div class="float-text ft5">KIMBS</div>
 </div>
 
-<!-- ORBS -->
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <div class="orb orb3"></div>
 
-<!-- NAV -->
 <nav>
   <div class="logo">KIMBS<span>BOT</span></div>
   <ul class="nav-links">
@@ -569,7 +585,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-badge"><div class="badge-dot"></div>AI BOT AGENCY — DAR ES SALAAM, TANZANIA</div>
@@ -586,7 +601,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </section>
 
-<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-wrap">
     <span class="tick-item">WHATSAPP BOTS <span class="tick-sep">◆</span></span>
@@ -606,7 +620,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </div>
 
-<!-- STATS -->
 <div class="stats">
   <div class="stats-row">
     <div class="reveal d1">
@@ -628,7 +641,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </div>
 
-<!-- PLATFORMS -->
 <section class="platforms" id="platforms">
   <div class="section-header">
     <div class="section-tag reveal">Our Platforms</div>
@@ -663,7 +675,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </section>
 
-<!-- SERVICES -->
 <section class="services" id="services">
   <div class="section-header">
     <div class="section-tag reveal">What We Build</div>
@@ -704,7 +715,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section class="how">
   <div class="section-header">
     <div class="section-tag reveal">How It Works</div>
@@ -735,7 +745,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="pricing" id="pricing">
   <div class="section-header">
     <div class="section-tag reveal">Pricing</div>
@@ -798,7 +807,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="contact-wrap">
     <div class="contact-left">
@@ -889,14 +897,12 @@ footer p{font-size:13px;color:rgba(255,255,255,0.3);}
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="logo">KIMBS<span style="color:#fff">BOT</span></div>
   <p>© 2026 KimbsBot — Built in Tanzania 🇹🇿</p>
   <p style="color:rgba(180,0,255,0.5)">AI POWERED // ALWAYS ON // ANY PLATFORM</p>
 </footer>
 
-<!-- WA BUTTON -->
 <a href="https://wa.me/255749594915" class="wa-btn" target="_blank">💬</a>
 
 <script>
