@@ -2,697 +2,515 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KimbsBot — Build Any Bot. Any Platform.</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>KimbsBot — AI Bots for Any Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #050508;
-  --bg2: #08080f;
-  --green: #00ff88;
-  --green2: rgba(0,255,136,0.15);
-  --green3: rgba(0,255,136,0.05);
-  --blue: #4488ff;
-  --pink: #ff44aa;
-  --yellow: #ffcc00;
-  --text: #f0f0f0;
-  --muted: #555566;
-  --muted2: #8888aa;
-  --border: rgba(0,255,136,0.08);
-}
-
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-
+html{scroll-behavior:smooth;font-size:16px;}
 body{
-  font-family:'Outfit',sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  font-family:'Inter',sans-serif;
+  background:#0a0015;
+  color:#fff;
   overflow-x:hidden;
-  cursor:none;
 }
 
-/* CUSTOM CURSOR */
-.cursor{
+/* FLOATING KIMBS TEXT */
+.floating-bg{
   position:fixed;
-  width:12px;height:12px;
-  background:var(--green);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:9999;
-  transition:transform 0.1s;
-  mix-blend-mode:difference;
-}
-.cursor-trail{
-  position:fixed;
-  width:40px;height:40px;
-  border:1px solid rgba(0,255,136,0.3);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:9998;
-  transition:all 0.15s ease;
-}
-
-/* NOISE OVERLAY */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:1;
-  opacity:0.4;
-}
-
-/* GRID */
-body::after{
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(0,255,136,0.02) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,255,136,0.02) 1px,transparent 1px);
-  background-size:80px 80px;
+  inset:0;
   pointer-events:none;
   z-index:0;
+  overflow:hidden;
+}
+.float-text{
+  position:absolute;
+  font-family:'Orbitron',monospace;
+  font-weight:900;
+  font-size:120px;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(180,0,255,0.08);
+  white-space:nowrap;
+  animation:floatAround linear infinite;
+  user-select:none;
+}
+.ft1{top:5%;animation-duration:25s;animation-delay:0s;}
+.ft2{top:25%;animation-duration:30s;animation-delay:-8s;}
+.ft3{top:45%;animation-duration:22s;animation-delay:-15s;}
+.ft4{top:65%;animation-duration:28s;animation-delay:-5s;}
+.ft5{top:82%;animation-duration:35s;animation-delay:-20s;}
+
+@keyframes floatAround{
+  0%{transform:translateX(-100%);}
+  100%{transform:translateX(110vw);}
+}
+
+/* PURPLE GLOW ORBS */
+.orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(100px);
+  pointer-events:none;
+  z-index:0;
+}
+.orb1{
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(180,0,255,0.15),transparent);
+  top:-200px;right:-200px;
+  animation:pulse2 6s ease-in-out infinite;
+}
+.orb2{
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(0,150,255,0.1),transparent);
+  bottom:20%;left:-100px;
+  animation:pulse2 8s ease-in-out infinite reverse;
+}
+.orb3{
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(255,0,150,0.08),transparent);
+  bottom:10%;right:10%;
+  animation:pulse2 10s ease-in-out infinite;
+}
+@keyframes pulse2{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.2);}
 }
 
 /* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;
-  z-index:100;
-  padding:20px 60px;
+  z-index:1000;
+  padding:18px 40px;
   display:flex;justify-content:space-between;align-items:center;
-  background:rgba(5,5,8,0.7);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
+  background:rgba(10,0,21,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(180,0,255,0.15);
 }
-
 .logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:28px;
-  color:var(--green);
-  letter-spacing:3px;
+  font-family:'Orbitron',monospace;
+  font-size:22px;font-weight:900;
+  color:#cc44ff;
+  letter-spacing:4px;
 }
-.logo span{color:var(--text);}
+.logo span{color:#fff;}
 
-nav ul{display:flex;gap:40px;list-style:none;}
-nav ul a{
-  color:var(--muted2);
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{
+  color:rgba(255,255,255,0.6);
   text-decoration:none;
-  font-size:13px;
-  font-weight:500;
-  letter-spacing:1px;
-  text-transform:uppercase;
+  font-size:14px;font-weight:500;
   transition:color 0.2s;
+  letter-spacing:0.5px;
 }
-nav ul a:hover{color:var(--green);}
+.nav-links a:hover{color:#cc44ff;}
 
-.nav-btn{
-  font-family:'JetBrains Mono',monospace;
-  font-size:12px;
-  color:#000!important;
-  background:var(--green);
+.nav-cta{
+  background:linear-gradient(135deg,#9900ff,#cc44ff);
+  color:#fff!important;
   padding:10px 24px;
-  border-radius:2px;
-  letter-spacing:1px;
-  transition:opacity 0.2s!important;
+  border-radius:50px!important;
+  font-weight:600!important;
+  font-size:14px!important;
+  box-shadow:0 4px 20px rgba(153,0,255,0.3);
+  transition:all 0.2s!important;
 }
-.nav-btn:hover{opacity:0.85;}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(153,0,255,0.5)!important;}
 
 /* HERO */
 .hero{
   min-height:100vh;
   display:flex;align-items:center;
-  padding:140px 60px 100px;
+  padding:120px 40px 80px;
   position:relative;z-index:2;
-  overflow:hidden;
-}
-
-.hero-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(80px);
-  pointer-events:none;
-}
-.orb1{
-  width:500px;height:500px;
-  background:radial-gradient(circle,rgba(0,255,136,0.08),transparent);
-  top:-100px;right:-100px;
-  animation:orbFloat 8s ease-in-out infinite;
-}
-.orb2{
-  width:400px;height:400px;
-  background:radial-gradient(circle,rgba(68,136,255,0.06),transparent);
-  bottom:-50px;left:-50px;
-  animation:orbFloat 10s ease-in-out infinite reverse;
-}
-.orb3{
-  width:300px;height:300px;
-  background:radial-gradient(circle,rgba(255,68,170,0.04),transparent);
-  top:50%;left:40%;
-  animation:orbFloat 12s ease-in-out infinite;
-}
-
-@keyframes orbFloat{
-  0%,100%{transform:translate(0,0) scale(1);}
-  33%{transform:translate(30px,-20px) scale(1.05);}
-  66%{transform:translate(-20px,30px) scale(0.95);}
 }
 
 .hero-inner{
-  max-width:1200px;
-  margin:0 auto;
-  width:100%;
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.hero-tag{
-  display:inline-flex;align-items:center;gap:10px;
-  background:rgba(0,255,136,0.08);
-  border:1px solid rgba(0,255,136,0.15);
-  padding:8px 18px;
-  border-radius:100px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;
-  color:var(--green);
-  margin-bottom:32px;
-  letter-spacing:1px;
-}
-.tag-dot{
-  width:6px;height:6px;
-  background:var(--green);
-  border-radius:50%;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,255,136,0.4);}
-  50%{opacity:0.7;box-shadow:0 0 0 6px rgba(0,255,136,0);}
-}
-
-.hero h1{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:88px;
-  line-height:0.95;
-  letter-spacing:2px;
-  margin-bottom:28px;
-}
-.hero h1 .line1{color:var(--text);}
-.hero h1 .line2{
-  color:var(--green);
-  -webkit-text-stroke:2px var(--green);
-  text-shadow:0 0 40px rgba(0,255,136,0.3);
-}
-.hero h1 .line3{
-  color:transparent;
-  -webkit-text-stroke:1px var(--muted);
-}
-
-.hero p{
-  font-size:17px;
-  color:var(--muted2);
-  line-height:1.8;
-  font-weight:300;
-  max-width:500px;
-  margin-bottom:44px;
-}
-
-.hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
-
-.btn-main{
-  background:var(--green);
-  color:#000;
-  padding:16px 36px;
-  font-family:'JetBrains Mono',monospace;
-  font-weight:700;
-  font-size:13px;
-  letter-spacing:2px;
-  text-decoration:none;
-  border-radius:2px;
-  display:inline-flex;align-items:center;gap:10px;
-  transition:all 0.2s;
-  position:relative;
-  overflow:hidden;
-}
-.btn-main::before{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(45deg,transparent,rgba(255,255,255,0.1),transparent);
-  transform:translateX(-100%);
-  transition:transform 0.4s;
-}
-.btn-main:hover::before{transform:translateX(100%);}
-.btn-main:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,255,136,0.3);}
-
-.btn-ghost{
-  background:transparent;
-  color:var(--text);
-  padding:16px 36px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:13px;
-  letter-spacing:2px;
-  text-decoration:none;
-  border-radius:2px;
-  border:1px solid var(--border);
-  display:inline-flex;align-items:center;gap:10px;
-  transition:all 0.2s;
-}
-.btn-ghost:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px);}
-
-/* PLATFORMS VISUAL */
-.platforms-visual{
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.platform-ring{
-  position:relative;
-  width:380px;height:380px;
-}
-
-.ring-center{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:80px;height:80px;
-  background:var(--green);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:14px;
-  color:#000;
-  letter-spacing:2px;
-  z-index:2;
-  box-shadow:0 0 40px rgba(0,255,136,0.4);
-}
-
-.ring-outer{
-  position:absolute;inset:0;
-  border:1px solid rgba(0,255,136,0.1);
-  border-radius:50%;
-  animation:spin 20s linear infinite;
-}
-.ring-inner{
-  position:absolute;inset:40px;
-  border:1px dashed rgba(0,255,136,0.08);
-  border-radius:50%;
-  animation:spin 15s linear infinite reverse;
-}
-
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-
-.platform-node{
-  position:absolute;
-  width:64px;height:64px;
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:16px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:4px;
-  font-size:10px;
-  color:var(--muted2);
-  font-weight:600;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  transition:all 0.3s;
-}
-.platform-node:hover{border-color:var(--green);color:var(--green);transform:scale(1.1);}
-.platform-node .icon{font-size:22px;}
-
-.node-wa{top:0;left:50%;transform:translateX(-50%);}
-.node-tg{right:0;top:50%;transform:translateY(-50%);}
-.node-ig{bottom:0;left:50%;transform:translateX(-50%);}
-.node-web{left:0;top:50%;transform:translateY(-50%);}
-
-.connecting-line{
-  position:absolute;
-  top:50%;left:50%;
-  width:120px;height:1px;
-  background:linear-gradient(90deg,var(--green),transparent);
-  transform-origin:left center;
-  opacity:0.3;
-}
-
-/* STATS */
-.stats{
-  padding:60px;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  position:relative;z-index:2;
-}
-.stats-row{
-  max-width:1200px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:0;
-}
-.stat{
-  padding:20px 40px;
-  border-right:1px solid var(--border);
+  max-width:1100px;margin:0 auto;width:100%;
   text-align:center;
 }
-.stat:last-child{border-right:none;}
-.stat-num{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:52px;
-  color:var(--green);
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(180,0,255,0.1);
+  border:1px solid rgba(180,0,255,0.3);
+  padding:10px 24px;
+  border-radius:50px;
+  font-size:14px;color:#cc44ff;
+  margin-bottom:40px;
+  letter-spacing:1px;
+}
+.badge-dot{
+  width:8px;height:8px;
+  background:#cc44ff;
+  border-radius:50%;
+  animation:blink 1.5s infinite;
+  box-shadow:0 0 8px #cc44ff;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+.hero-title{
+  font-family:'Orbitron',monospace;
+  font-size:72px;
+  font-weight:900;
+  line-height:1.05;
+  margin-bottom:30px;
   letter-spacing:2px;
-  line-height:1;
 }
-.stat-label{font-size:12px;color:var(--muted2);margin-top:8px;letter-spacing:1px;text-transform:uppercase;}
-
-/* SECTIONS */
-section{padding:120px 60px;position:relative;z-index:2;}
-
-.sw{max-width:1200px;margin:0 auto;}
-
-.s-tag{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;
-  color:var(--green);
-  letter-spacing:3px;
-  text-transform:uppercase;
-  margin-bottom:16px;
-  opacity:0.7;
+.hero-title .t1{
+  display:block;color:#fff;
+  animation:slideIn 0.8s ease forwards;
+  opacity:0;
 }
-.s-tag::before{content:'// ';}
-
-.s-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:56px;
-  letter-spacing:2px;
-  line-height:1;
-  margin-bottom:16px;
+.hero-title .t2{
+  display:block;
+  background:linear-gradient(135deg,#9900ff,#cc44ff,#ff44aa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:slideIn 0.8s ease 0.2s forwards;
+  opacity:0;
+  text-shadow:none;
+  filter:drop-shadow(0 0 20px rgba(204,68,255,0.5));
 }
-.s-sub{font-size:16px;color:var(--muted2);max-width:500px;line-height:1.8;font-weight:300;}
+.hero-title .t3{
+  display:block;color:rgba(255,255,255,0.3);
+  animation:slideIn 0.8s ease 0.4s forwards;
+  opacity:0;
+}
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
 
-/* PLATFORMS SECTION */
+.hero-sub{
+  font-size:20px;
+  color:rgba(255,255,255,0.6);
+  line-height:1.8;
+  max-width:700px;
+  margin:0 auto 50px;
+  font-weight:300;
+  animation:slideIn 0.8s ease 0.6s forwards;
+  opacity:0;
+}
+
+.hero-btns{
+  display:flex;gap:20px;justify-content:center;flex-wrap:wrap;
+  animation:slideIn 0.8s ease 0.8s forwards;
+  opacity:0;
+}
+
+.btn-purple{
+  background:linear-gradient(135deg,#9900ff,#cc44ff);
+  color:#fff;
+  padding:18px 44px;
+  border-radius:50px;
+  font-weight:700;font-size:16px;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;
+  box-shadow:0 8px 30px rgba(153,0,255,0.4);
+  transition:all 0.3s;
+  letter-spacing:0.5px;
+}
+.btn-purple:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(153,0,255,0.6);}
+
+.btn-outline{
+  background:transparent;
+  color:#fff;
+  padding:18px 44px;
+  border-radius:50px;
+  font-weight:600;font-size:16px;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;
+  border:2px solid rgba(180,0,255,0.4);
+  transition:all 0.3s;
+}
+.btn-outline:hover{border-color:#cc44ff;background:rgba(180,0,255,0.1);transform:translateY(-3px);}
+
+/* PLATFORMS CARDS */
+.platforms{
+  padding:100px 40px;
+  position:relative;z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(153,0,255,0.03),transparent);
+}
+.section-header{text-align:center;margin-bottom:60px;}
+.section-tag{
+  display:inline-block;
+  background:rgba(180,0,255,0.1);
+  border:1px solid rgba(180,0,255,0.2);
+  color:#cc44ff;
+  font-size:12px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:6px 20px;border-radius:50px;
+  margin-bottom:20px;
+}
+.section-title{
+  font-family:'Orbitron',monospace;
+  font-size:42px;font-weight:700;
+  margin-bottom:16px;letter-spacing:1px;
+  line-height:1.2;
+}
+.section-sub{font-size:18px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.7;}
+
 .platforms-grid{
-  max-width:1200px;
-  margin:60px auto 0;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
 }
 .platform-card{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:32px 24px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;padding:36px 24px;
   text-align:center;
-  position:relative;
-  overflow:hidden;
-  transition:all 0.3s;
+  transition:all 0.4s;
+  position:relative;overflow:hidden;
   cursor:pointer;
 }
 .platform-card::before{
-  content:'';
-  position:absolute;inset:0;
-  opacity:0;
+  content:'';position:absolute;inset:0;
+  border-radius:20px;opacity:0;
   transition:opacity 0.3s;
 }
-.platform-card.wa::before{background:linear-gradient(135deg,rgba(37,211,102,0.05),transparent);}
-.platform-card.tg::before{background:linear-gradient(135deg,rgba(40,167,226,0.05),transparent);}
-.platform-card.ig::before{background:linear-gradient(135deg,rgba(225,48,108,0.05),transparent);}
-.platform-card.web::before{background:linear-gradient(135deg,rgba(68,136,255,0.05),transparent);}
-
-.platform-card:hover{transform:translateY(-6px);}
-.platform-card.wa:hover{border-color:rgba(37,211,102,0.4);}
-.platform-card.tg:hover{border-color:rgba(40,167,226,0.4);}
-.platform-card.ig:hover{border-color:rgba(225,48,108,0.4);}
-.platform-card.web:hover{border-color:rgba(68,136,255,0.4);}
+.platform-card:hover{transform:translateY(-8px);}
 .platform-card:hover::before{opacity:1;}
 
-.p-icon{font-size:44px;margin-bottom:16px;}
-.p-name{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:22px;letter-spacing:2px;
-  margin-bottom:10px;
+.pc-wa::before{background:linear-gradient(135deg,rgba(37,211,102,0.1),transparent);}
+.pc-wa:hover{border-color:rgba(37,211,102,0.4);box-shadow:0 20px 50px rgba(37,211,102,0.15);}
+
+.pc-tg::before{background:linear-gradient(135deg,rgba(40,167,226,0.1),transparent);}
+.pc-tg:hover{border-color:rgba(40,167,226,0.4);box-shadow:0 20px 50px rgba(40,167,226,0.15);}
+
+.pc-ig::before{background:linear-gradient(135deg,rgba(225,48,108,0.1),transparent);}
+.pc-ig:hover{border-color:rgba(225,48,108,0.4);box-shadow:0 20px 50px rgba(225,48,108,0.15);}
+
+.pc-web::before{background:linear-gradient(135deg,rgba(180,0,255,0.1),transparent);}
+.pc-web:hover{border-color:rgba(180,0,255,0.4);box-shadow:0 20px 50px rgba(180,0,255,0.15);}
+
+.p-emoji{font-size:52px;margin-bottom:20px;display:block;}
+.p-name{font-family:'Orbitron',monospace;font-size:18px;font-weight:700;margin-bottom:12px;letter-spacing:1px;}
+.p-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:16px;}
+.p-pill{
+  display:inline-block;padding:4px 16px;border-radius:50px;
+  font-size:11px;font-weight:600;letter-spacing:1px;
 }
-.p-desc{font-size:13px;color:var(--muted2);line-height:1.7;}
-.p-badge{
-  display:inline-block;
-  margin-top:16px;
-  padding:4px 12px;
-  border-radius:100px;
-  font-size:10px;
-  font-family:'JetBrains Mono',monospace;
-  letter-spacing:1px;
+.pc-wa .p-pill{background:rgba(37,211,102,0.1);color:#25d366;}
+.pc-tg .p-pill{background:rgba(40,167,226,0.1);color:#28a7e2;}
+.pc-ig .p-pill{background:rgba(225,48,108,0.1);color:#e1306c;}
+.pc-web .p-pill{background:rgba(180,0,255,0.1);color:#cc44ff;}
+
+/* STATS */
+.stats{
+  padding:60px 40px;
+  background:rgba(153,0,255,0.05);
+  border-top:1px solid rgba(180,0,255,0.1);
+  border-bottom:1px solid rgba(180,0,255,0.1);
+  position:relative;z-index:2;
 }
-.wa .p-badge{background:rgba(37,211,102,0.1);color:#25d366;}
-.tg .p-badge{background:rgba(40,167,226,0.1);color:#28a7e2;}
-.ig .p-badge{background:rgba(225,48,108,0.1);color:#e1306c;}
-.web .p-badge{background:rgba(68,136,255,0.1);color:#4488ff;}
+.stats-row{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  text-align:center;
+}
+.stat-num{
+  font-family:'Orbitron',monospace;
+  font-size:48px;font-weight:900;
+  background:linear-gradient(135deg,#9900ff,#cc44ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;margin-bottom:10px;
+}
+.stat-lbl{font-size:14px;color:rgba(255,255,255,0.5);letter-spacing:1px;}
 
 /* SERVICES */
+.services{
+  padding:100px 40px;
+  position:relative;z-index:2;
+}
 .services-grid{
-  max-width:1200px;
-  margin:60px auto 0;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--border);
-  border:1px solid var(--border);
-  border-radius:8px;
-  overflow:hidden;
+  max-width:1100px;margin:60px auto 0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
 }
-.svc-card{
-  background:var(--bg);
-  padding:40px;
-  transition:background 0.3s;
-  position:relative;
-  overflow:hidden;
+.svc{
+  background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:20px;padding:36px;
+  transition:all 0.3s;
 }
-.svc-card::after{
-  content:attr(data-num);
-  position:absolute;
-  bottom:-10px;right:10px;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:80px;
-  color:rgba(0,255,136,0.03);
-  pointer-events:none;
+.svc:hover{
+  border-color:rgba(180,0,255,0.3);
+  background:linear-gradient(135deg,rgba(153,0,255,0.05),rgba(255,255,255,0.01));
+  transform:translateY(-4px);
+  box-shadow:0 20px 50px rgba(153,0,255,0.1);
 }
-.svc-card:hover{background:var(--green3);}
 .svc-num{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;color:var(--green);
-  opacity:0.5;margin-bottom:20px;
+  font-family:'Orbitron',monospace;
+  font-size:12px;color:#cc44ff;
+  opacity:0.5;margin-bottom:20px;letter-spacing:2px;
 }
-.svc-card h3{font-size:20px;font-weight:600;margin-bottom:12px;letter-spacing:-0.3px;}
-.svc-card p{font-size:14px;color:var(--muted2);line-height:1.8;font-weight:300;}
+.svc h3{font-size:20px;font-weight:600;margin-bottom:14px;}
+.svc p{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.8;font-weight:300;}
 
 /* HOW */
+.how{
+  padding:100px 40px;
+  background:rgba(153,0,255,0.03);
+  position:relative;z-index:2;
+}
 .how-grid{
-  max-width:1200px;
-  margin:60px auto 0;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:32px;
+  max-width:1100px;margin:60px auto 0;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
 }
-.how-card{position:relative;}
-.how-line{
-  position:absolute;
-  top:28px;left:calc(50% + 28px);right:calc(-50% + 28px);
-  height:1px;
-  background:linear-gradient(90deg,var(--green),transparent);
-  opacity:0.2;
-}
-.how-card:last-child .how-line{display:none;}
-.how-num{
-  width:56px;height:56px;
-  border:1px solid var(--green);
-  border-radius:4px;
+.how-step{text-align:center;}
+.step-num{
+  width:70px;height:70px;
+  background:linear-gradient(135deg,#9900ff,#cc44ff);
+  border-radius:20px;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:24px;color:var(--green);
-  margin-bottom:20px;
-  background:var(--green3);
+  font-family:'Orbitron',monospace;
+  font-size:24px;font-weight:900;
+  margin:0 auto 24px;
+  box-shadow:0 10px 30px rgba(153,0,255,0.3);
   transition:all 0.3s;
 }
-.how-card:hover .how-num{background:var(--green);color:#000;}
-.how-card h3{font-size:16px;font-weight:600;margin-bottom:10px;}
-.how-card p{font-size:13px;color:var(--muted2);line-height:1.8;}
+.how-step:hover .step-num{transform:scale(1.1);box-shadow:0 15px 40px rgba(153,0,255,0.5);}
+.how-step h3{font-size:18px;font-weight:600;margin-bottom:12px;}
+.how-step p{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.8;}
 
 /* PRICING */
-.pricing-bg{background:var(--bg2);}
+.pricing{padding:100px 40px;position:relative;z-index:2;}
 .pricing-grid{
-  max-width:1200px;
-  margin:60px auto 0;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
+  max-width:1100px;margin:60px auto 0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  align-items:start;
 }
 .price-card{
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:44px;
-  position:relative;
-  transition:all 0.3s;
+  background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;padding:44px;
+  position:relative;transition:all 0.3s;
 }
-.price-card:hover{transform:translateY(-4px);}
-.price-card.hot{
-  border-color:var(--green);
-  background:rgba(0,255,136,0.02);
+.price-card:hover{transform:translateY(-6px);}
+.price-card.featured{
+  border-color:rgba(180,0,255,0.5);
+  background:linear-gradient(135deg,rgba(153,0,255,0.08),rgba(255,255,255,0.01));
+  box-shadow:0 0 60px rgba(153,0,255,0.15);
 }
-.price-card.hot:hover{box-shadow:0 20px 60px rgba(0,255,136,0.1);}
-
-.hot-badge{
+.feat-badge{
   position:absolute;top:-14px;left:50%;transform:translateX(-50%);
-  background:var(--green);
-  color:#000;
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;font-weight:700;
-  padding:5px 18px;
-  border-radius:100px;
-  letter-spacing:2px;
-  white-space:nowrap;
+  background:linear-gradient(135deg,#9900ff,#cc44ff);
+  color:#fff;font-weight:700;font-size:11px;
+  padding:5px 20px;border-radius:50px;
+  white-space:nowrap;letter-spacing:2px;
 }
-
-.price-tier{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;color:var(--green);
-  letter-spacing:3px;margin-bottom:20px;opacity:0.7;
+.price-name{font-size:13px;color:#cc44ff;font-weight:600;letter-spacing:3px;margin-bottom:20px;text-transform:uppercase;}
+.price-num{
+  font-family:'Orbitron',monospace;
+  font-size:64px;font-weight:900;
+  line-height:1;margin-bottom:6px;
 }
-.price-amount{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:72px;letter-spacing:-2px;
-  line-height:1;color:var(--text);
-  margin-bottom:4px;
-}
-.price-amount sup{font-size:28px;vertical-align:super;letter-spacing:0;}
-.price-period{font-size:13px;color:var(--muted2);margin-bottom:8px;}
+.price-num sup{font-size:28px;vertical-align:super;}
+.price-mo{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:8px;}
 .price-setup{
-  font-size:12px;
-  color:var(--green);
-  font-family:'JetBrains Mono',monospace;
-  margin-bottom:32px;
-  opacity:0.7;
+  font-size:13px;color:#cc44ff;
+  font-weight:500;margin-bottom:36px;
 }
-
-.price-features{
-  list-style:none;
-  display:flex;flex-direction:column;gap:12px;
-  margin-bottom:36px;
-  border-top:1px solid var(--border);
-  padding-top:28px;
+.price-list{
+  list-style:none;display:flex;flex-direction:column;gap:14px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding-top:28px;margin-bottom:36px;
 }
-.price-features li{
-  display:flex;align-items:center;gap:10px;
-  font-size:13px;color:var(--muted2);
+.price-list li{
+  display:flex;align-items:center;gap:12px;
+  font-size:14px;color:rgba(255,255,255,0.5);
 }
-.price-features li.on{color:var(--text);}
-.price-features li.on::before{content:'✓';color:var(--green);font-family:'JetBrains Mono';font-size:12px;flex-shrink:0;}
-.price-features li.off{opacity:0.4;}
-.price-features li.off::before{content:'×';color:var(--muted);font-family:'JetBrains Mono';font-size:12px;flex-shrink:0;}
+.price-list li.yes{color:rgba(255,255,255,0.85);}
+.price-list li.yes::before{content:'✓';color:#cc44ff;font-weight:700;flex-shrink:0;}
+.price-list li.no{opacity:0.35;}
+.price-list li.no::before{content:'×';color:#666;flex-shrink:0;}
 
 /* CONTACT */
-.contact-inner{
-  max-width:1200px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+.contact{
+  padding:100px 40px;
+  background:rgba(153,0,255,0.03);
+  position:relative;z-index:2;
 }
-.contact-info{display:flex;flex-direction:column;gap:36px;margin-top:48px;}
-.c-item{display:flex;gap:20px;align-items:flex-start;}
-.c-icon{
-  width:48px;height:48px;
-  border:1px solid var(--border);
-  border-radius:8px;
+.contact-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-left{padding-top:20px;}
+.contact-items{display:flex;flex-direction:column;gap:32px;margin-top:48px;}
+.ci{display:flex;gap:20px;align-items:flex-start;}
+.ci-icon{
+  width:52px;height:52px;
+  background:rgba(180,0,255,0.1);
+  border:1px solid rgba(180,0,255,0.2);
+  border-radius:14px;
   display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-  background:var(--green3);
+  font-size:22px;flex-shrink:0;
 }
-.c-label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;color:var(--green);
-  letter-spacing:2px;margin-bottom:6px;opacity:0.7;
-}
-.c-val{font-size:16px;font-weight:500;}
+.ci-label{font-size:11px;color:#cc44ff;letter-spacing:2px;font-weight:600;margin-bottom:6px;text-transform:uppercase;}
+.ci-val{font-size:16px;font-weight:500;}
 
-.contact-form{display:flex;flex-direction:column;gap:16px;}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form{display:flex;flex-direction:column;gap:18px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 .fg{display:flex;flex-direction:column;gap:8px;}
-.fg label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;color:var(--green);
-  letter-spacing:2px;opacity:0.7;
-}
+.fg label{font-size:11px;color:#cc44ff;letter-spacing:2px;font-weight:600;text-transform:uppercase;}
 .fg input,.fg select,.fg textarea{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:6px;
-  padding:14px 16px;
-  color:var(--text);
-  font-family:'Outfit',sans-serif;
-  font-size:14px;
-  outline:none;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  padding:16px 18px;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+  font-size:15px;outline:none;
   transition:border-color 0.2s;
 }
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(0,255,136,0.4);}
-.fg textarea{resize:vertical;min-height:100px;}
-.fg select option{background:#0a0a12;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(180,0,255,0.5);}
+.fg textarea{resize:vertical;min-height:110px;}
+.fg select option{background:#0a0015;}
 
 /* FOOTER */
 footer{
-  padding:40px 60px;
-  border-top:1px solid var(--border);
+  padding:40px;
+  border-top:1px solid rgba(180,0,255,0.1);
   display:flex;justify-content:space-between;align-items:center;
   position:relative;z-index:2;
+  flex-wrap:wrap;gap:16px;
 }
-footer p{font-size:12px;color:var(--muted2);font-family:'JetBrains Mono',monospace;}
-.footer-logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:22px;color:var(--green);letter-spacing:3px;
-}
+footer p{font-size:13px;color:rgba(255,255,255,0.3);}
 
-/* WA FLOAT */
-.wa-float{
-  position:fixed;bottom:32px;right:32px;
-  width:56px;height:56px;
+/* TICKER */
+.ticker{
+  padding:16px 0;
+  background:linear-gradient(135deg,#9900ff,#cc44ff);
+  overflow:hidden;position:relative;z-index:2;
+}
+.ticker-wrap{display:flex;animation:tick 25s linear infinite;white-space:nowrap;}
+.tick-item{
+  font-family:'Orbitron',monospace;
+  font-size:14px;color:#fff;
+  letter-spacing:2px;padding:0 32px;font-weight:700;
+}
+.tick-sep{opacity:0.4;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* WA BUTTON */
+.wa-btn{
+  position:fixed;bottom:30px;right:30px;
+  width:60px;height:60px;
   background:#25d366;
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-size:26px;
-  text-decoration:none;
-  box-shadow:0 0 30px rgba(37,211,102,0.4);
-  z-index:200;
-  transition:transform 0.2s;
+  font-size:28px;text-decoration:none;
+  box-shadow:0 8px 30px rgba(37,211,102,0.5);
+  z-index:500;transition:transform 0.2s;
 }
-.wa-float:hover{transform:scale(1.1);}
+.wa-btn:hover{transform:scale(1.1);}
 
-/* SCROLL ANIMATIONS */
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:all 0.8s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.visible{opacity:1;transform:translateY(0);}
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(50px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1);}
+.reveal.show{opacity:1;transform:translateY(0);}
+.reveal-l{opacity:0;transform:translateX(-50px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1);}
+.reveal-l.show{opacity:1;transform:translateX(0);}
+.reveal-r{opacity:0;transform:translateX(50px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1);}
+.reveal-r.show{opacity:1;transform:translateX(0);}
 
-.reveal-left{
-  opacity:0;
-  transform:translateX(-40px);
-  transition:all 0.8s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal-left.visible{opacity:1;transform:translateX(0);}
-
-.reveal-right{
-  opacity:0;
-  transform:translateX(40px);
-  transition:all 0.8s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal-right.visible{opacity:1;transform:translateX(0);}
-
-.reveal-scale{
-  opacity:0;
-  transform:scale(0.9);
-  transition:all 0.8s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal-scale.visible{opacity:1;transform:scale(1);}
-
-/* STAGGER DELAYS */
 .d1{transition-delay:0.1s;}
 .d2{transition-delay:0.2s;}
 .d3{transition-delay:0.3s;}
@@ -700,381 +518,337 @@ footer p{font-size:12px;color:var(--muted2);font-family:'JetBrains Mono',monospa
 .d5{transition-delay:0.5s;}
 .d6{transition-delay:0.6s;}
 
-/* TICKER */
-.ticker{
-  padding:16px 0;
-  background:var(--green);
-  overflow:hidden;
-  position:relative;z-index:2;
-}
-.ticker-inner{
-  display:flex;
-  animation:ticker 20s linear infinite;
-  white-space:nowrap;
-}
-.ticker-item{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:16px;
-  color:#000;
-  letter-spacing:3px;
-  padding:0 40px;
-}
-.ticker-sep{color:rgba(0,0,0,0.3);}
-@keyframes ticker{
-  from{transform:translateX(0);}
-  to{transform:translateX(-50%);}
-}
-
 /* MOBILE */
-@media(max-width:768px){
-  nav{padding:16px 24px;}
-  nav ul{display:none;}
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-links{display:none;}
   .hero{padding:100px 24px 60px;}
-  .hero-inner{grid-template-columns:1fr;}
-  .hero h1{font-size:56px;}
-  .platforms-visual{display:none;}
-  .stats{padding:40px 24px;}
-  .stats-row{grid-template-columns:repeat(2,1fr);}
-  .stat{border-right:none;border-bottom:1px solid var(--border);}
-  section{padding:60px 24px;}
+  .hero-title{font-size:42px;}
+  .hero-sub{font-size:16px;}
+  .platforms,
+  .services,
+  .how,
+  .pricing,
+  .contact{padding:60px 24px;}
   .platforms-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
   .services-grid{grid-template-columns:1fr;}
   .how-grid{grid-template-columns:repeat(2,1fr);}
   .pricing-grid{grid-template-columns:1fr;}
-  .contact-inner{grid-template-columns:1fr;}
-  footer{flex-direction:column;gap:16px;padding:32px 24px;}
+  .contact-wrap{grid-template-columns:1fr;}
+  footer{padding:32px 24px;flex-direction:column;text-align:center;}
+  .section-title{font-size:30px;}
 }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-trail" id="trail"></div>
+<!-- FLOATING KIMBS BACKGROUND -->
+<div class="floating-bg">
+  <div class="float-text ft1">KIMBS</div>
+  <div class="float-text ft2">KIMBSBOT</div>
+  <div class="float-text ft3">KIMBS</div>
+  <div class="float-text ft4">KIMBSBOT</div>
+  <div class="float-text ft5">KIMBS</div>
+</div>
+
+<!-- ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
 
 <!-- NAV -->
 <nav>
-  <div class="logo">Kimbs<span>Bot</span></div>
-  <ul>
+  <div class="logo">KIMBS<span>BOT</span></div>
+  <ul class="nav-links">
     <li><a href="#platforms">Platforms</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="https://wa.me/255749594915" class="nav-btn">// HIRE US</a></li>
+    <li><a href="https://wa.me/255749594915" class="nav-cta">Hire Us</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-orb orb1"></div>
-  <div class="hero-orb orb2"></div>
-  <div class="hero-orb orb3"></div>
   <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-tag"><div class="tag-dot"></div>BUILD ANY BOT. ANY PLATFORM.</div>
-      <h1>
-        <div class="line1">WE</div>
-        <div class="line2">BUILD</div>
-        <div class="line3">BOTS.</div>
-      </h1>
-      <p>WhatsApp. Telegram. Instagram. Website. We automate customer conversations for any business in Tanzania — 24/7, instant replies, zero human effort.</p>
-      <div class="hero-btns">
-        <a href="https://wa.me/255749594915?text=Hello KimbsBot, I want to automate my business" class="btn-main">→ START NOW</a>
-        <a href="#platforms" class="btn-ghost">SEE PLATFORMS ↓</a>
-      </div>
-    </div>
-    <div class="platforms-visual">
-      <div class="platform-ring">
-        <div class="ring-outer"></div>
-        <div class="ring-inner"></div>
-        <div class="ring-center">AI BOT</div>
-        <div class="platform-node node-wa">
-          <div class="icon">💬</div>
-          <span>WA</span>
-        </div>
-        <div class="platform-node node-tg">
-          <div class="icon">✈️</div>
-          <span>TG</span>
-        </div>
-        <div class="platform-node node-ig">
-          <div class="icon">📸</div>
-          <span>IG</span>
-        </div>
-        <div class="platform-node node-web">
-          <div class="icon">🌐</div>
-          <span>WEB</span>
-        </div>
-      </div>
+    <div class="hero-badge"><div class="badge-dot"></div>AI BOT AGENCY — DAR ES SALAAM, TANZANIA</div>
+    <h1 class="hero-title">
+      <span class="t1">WE BUILD</span>
+      <span class="t2">ANY BOT</span>
+      <span class="t3">ANY PLATFORM</span>
+    </h1>
+    <p class="hero-sub">WhatsApp. Telegram. Instagram. Website. We automate your business conversations 24/7 — so you can focus on what matters: growing.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/255749594915?text=Hello KimbsBot! I want a bot for my business" class="btn-purple">🚀 Get Your Bot Now</a>
+      <a href="#platforms" class="btn-outline">See Platforms ↓</a>
     </div>
   </div>
 </section>
 
 <!-- TICKER -->
 <div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">WHATSAPP BOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">TELEGRAM BOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">INSTAGRAM DM BOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">WEBSITE CHATBOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">AI ACCOUNTING <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">LIVE DASHBOARDS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">DAILY REPORTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">24/7 AUTOMATION <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">WHATSAPP BOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">TELEGRAM BOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">INSTAGRAM DM BOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">WEBSITE CHATBOTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">AI ACCOUNTING <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">LIVE DASHBOARDS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">DAILY REPORTS <span class="ticker-sep">◆</span></span>
-    <span class="ticker-item">24/7 AUTOMATION <span class="ticker-sep">◆</span></span>
+  <div class="ticker-wrap">
+    <span class="tick-item">WHATSAPP BOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">TELEGRAM BOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">INSTAGRAM BOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">WEBSITE CHATBOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">AI ACCOUNTING <span class="tick-sep">◆</span></span>
+    <span class="tick-item">LIVE DASHBOARDS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">24/7 AUTOMATION <span class="tick-sep">◆</span></span>
+    <span class="tick-item">WHATSAPP BOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">TELEGRAM BOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">INSTAGRAM BOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">WEBSITE CHATBOTS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">AI ACCOUNTING <span class="tick-sep">◆</span></span>
+    <span class="tick-item">LIVE DASHBOARDS <span class="tick-sep">◆</span></span>
+    <span class="tick-item">24/7 AUTOMATION <span class="tick-sep">◆</span></span>
   </div>
 </div>
 
 <!-- STATS -->
 <div class="stats">
   <div class="stats-row">
-    <div class="stat reveal d1">
+    <div class="reveal d1">
       <div class="stat-num">24/7</div>
-      <div class="stat-label">Never Sleeps</div>
+      <div class="stat-lbl">Always Online</div>
     </div>
-    <div class="stat reveal d2">
-      <div class="stat-num">&lt;2S</div>
-      <div class="stat-label">Reply Time</div>
+    <div class="reveal d2">
+      <div class="stat-num">&lt;2s</div>
+      <div class="stat-lbl">Reply Speed</div>
     </div>
-    <div class="stat reveal d3">
+    <div class="reveal d3">
       <div class="stat-num">4</div>
-      <div class="stat-label">Platforms</div>
+      <div class="stat-lbl">Platforms Supported</div>
     </div>
-    <div class="stat reveal d4">
+    <div class="reveal d4">
       <div class="stat-num">∞</div>
-      <div class="stat-label">Simultaneous Chats</div>
+      <div class="stat-lbl">Simultaneous Chats</div>
     </div>
   </div>
 </div>
 
 <!-- PLATFORMS -->
-<section id="platforms">
-  <div class="sw">
-    <div class="s-tag reveal">platforms</div>
-    <h2 class="s-title reveal">Any platform.<br>One team.</h2>
-    <p class="s-sub reveal">We build bots for wherever your customers are. Pick one or connect all four.</p>
+<section class="platforms" id="platforms">
+  <div class="section-header">
+    <div class="section-tag reveal">Our Platforms</div>
+    <h2 class="section-title reveal">Build bots for<br>any platform</h2>
+    <p class="section-sub reveal">Your customers are everywhere. So are we.</p>
   </div>
   <div class="platforms-grid">
-    <div class="platform-card wa reveal d1">
-      <div class="p-icon">💬</div>
+    <div class="platform-card pc-wa reveal d1">
+      <span class="p-emoji">💬</span>
       <div class="p-name">WhatsApp</div>
-      <p class="p-desc">The most used app in Tanzania. Instant replies, menu handling, orders, delivery info — fully automated.</p>
-      <div class="p-badge">MOST POPULAR</div>
+      <p class="p-desc">Tanzania's #1 app. Instant replies, menu handling, orders and delivery — fully automated.</p>
+      <div class="p-pill">Most Popular</div>
     </div>
-    <div class="platform-card tg reveal d2">
-      <div class="p-icon">✈️</div>
+    <div class="platform-card pc-tg reveal d2">
+      <span class="p-emoji">✈️</span>
       <div class="p-name">Telegram</div>
-      <p class="p-desc">Powerful bot platform with no message limits. Perfect for businesses with high customer volume.</p>
-      <div class="p-badge">NO LIMITS</div>
+      <p class="p-desc">No message limits. High-volume businesses love Telegram bots for their speed and reliability.</p>
+      <div class="p-pill">No Limits</div>
     </div>
-    <div class="platform-card ig reveal d3">
-      <div class="p-icon">📸</div>
+    <div class="platform-card pc-ig reveal d3">
+      <span class="p-emoji">📸</span>
       <div class="p-name">Instagram</div>
-      <p class="p-desc">Auto-reply to DMs and story mentions. Turn followers into customers automatically.</p>
-      <div class="p-badge">DM AUTOMATION</div>
+      <p class="p-desc">Auto-reply to DMs and story mentions. Turn your followers into paying customers automatically.</p>
+      <div class="p-pill">DM Automation</div>
     </div>
-    <div class="platform-card web reveal d4">
-      <div class="p-icon">🌐</div>
+    <div class="platform-card pc-web reveal d4">
+      <span class="p-emoji">🌐</span>
       <div class="p-name">Website</div>
-      <p class="p-desc">Embed an AI chatbot on your website. Available 24/7 to answer visitor questions instantly.</p>
-      <div class="p-badge">EMBED ANYWHERE</div>
+      <p class="p-desc">Embed a smart chatbot on your website. Answers visitor questions instantly, 24/7.</p>
+      <div class="p-pill">Embed Anywhere</div>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -->
-<section id="services" style="background:var(--bg2);">
-  <div class="sw">
-    <div class="s-tag reveal">what we deploy</div>
-    <h2 class="s-title reveal">One system.<br>Multiple superpowers.</h2>
-    <p class="s-sub reveal">Fully automated. No human needed.</p>
+<section class="services" id="services">
+  <div class="section-header">
+    <div class="section-tag reveal">What We Build</div>
+    <h2 class="section-title reveal">Everything your<br>business needs</h2>
+    <p class="section-sub reveal">One system. Multiple superpowers. Zero effort from you.</p>
   </div>
   <div class="services-grid">
-    <div class="svc-card reveal d1" data-num="01">
+    <div class="svc reveal d1">
       <div class="svc-num">01</div>
-      <h3>AI Customer Bot</h3>
-      <p>Smart bot that handles customer questions, orders, pricing and delivery — automatically in Swahili or English. No human needed.</p>
+      <h3>🤖 AI Customer Bot</h3>
+      <p>Handles customer questions, orders, pricing and delivery info automatically in Swahili or English. No human needed.</p>
     </div>
-    <div class="svc-card reveal d2" data-num="02">
+    <div class="svc reveal d2">
       <div class="svc-num">02</div>
-      <h3>Live Business Dashboard</h3>
-      <p>Real-time dashboard showing income, expenses, profit/loss and weekly charts. Access from any phone or laptop, anywhere.</p>
+      <h3>📊 Live Dashboard</h3>
+      <p>Real-time dashboard showing your income, expenses, profit/loss and weekly charts. Access from any phone.</p>
     </div>
-    <div class="svc-card reveal d3" data-num="03">
+    <div class="svc reveal d3">
       <div class="svc-num">03</div>
-      <h3>WhatsApp Accounting</h3>
-      <p>Just type what you bought or sold. The AI records it, calculates profit instantly, and keeps your books automatically.</p>
+      <h3>💰 WhatsApp Accounting</h3>
+      <p>Just type what you bought or sold. The AI records it, calculates profit instantly, and keeps your books.</p>
     </div>
-    <div class="svc-card reveal d4" data-num="04">
+    <div class="svc reveal d4">
       <div class="svc-num">04</div>
-      <h3>Automatic Daily Reports</h3>
-      <p>Every evening at your chosen time, a full financial summary is sent directly to your WhatsApp. See your day's performance.</p>
+      <h3>🔔 Daily Reports</h3>
+      <p>Every evening, a full financial summary is sent to your WhatsApp automatically. See your day's results.</p>
     </div>
-    <div class="svc-card reveal d5" data-num="05">
+    <div class="svc reveal d5">
       <div class="svc-num">05</div>
-      <h3>Bank-Ready PDF Reports</h3>
-      <p>Professional monthly statements structured for bank loan applications. Real financial records that banks accept.</p>
+      <h3>📄 Bank-Ready Reports</h3>
+      <p>Professional monthly PDF statements for bank loan applications. Real records that banks accept.</p>
     </div>
-    <div class="svc-card reveal d6" data-num="06">
+    <div class="svc reveal d6">
       <div class="svc-num">06</div>
-      <h3>Multi-Platform Bots</h3>
-      <p>Connect to WhatsApp, Telegram, Instagram and your website simultaneously. One AI brain serving customers everywhere.</p>
+      <h3>📱 Multi-Platform</h3>
+      <p>Connect to WhatsApp, Telegram, Instagram and your website at once. One AI brain, everywhere you are.</p>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section>
-  <div class="sw">
-    <div class="s-tag reveal">process</div>
-    <h2 class="s-title reveal">Live in 48 hours.<br>Guaranteed.</h2>
-    <p class="s-sub reveal">We handle everything technical. You just share the number.</p>
+<section class="how">
+  <div class="section-header">
+    <div class="section-tag reveal">How It Works</div>
+    <h2 class="section-title reveal">Live in 48 hours.<br>Guaranteed.</h2>
+    <p class="section-sub reveal">We handle all the technical work. You just share the number.</p>
   </div>
   <div class="how-grid">
-    <div class="how-card reveal d1">
-      <div class="how-line"></div>
-      <div class="how-num">01</div>
+    <div class="how-step reveal d1">
+      <div class="step-num">01</div>
       <h3>Tell us about your business</h3>
-      <p>Share your products, prices, services and any info your customers ask about.</p>
+      <p>Share your products, prices, services — anything your customers ask about.</p>
     </div>
-    <div class="how-card reveal d2">
-      <div class="how-line"></div>
-      <div class="how-num">02</div>
+    <div class="how-step reveal d2">
+      <div class="step-num">02</div>
       <h3>We build your AI bot</h3>
-      <p>We set up the bot, train it on your data, and connect it to your chosen platforms.</p>
+      <p>We set up the bot, train it on your data, and connect it to your platforms.</p>
     </div>
-    <div class="how-card reveal d3">
-      <div class="how-line"></div>
-      <div class="how-num">03</div>
+    <div class="how-step reveal d3">
+      <div class="step-num">03</div>
       <h3>You test and approve</h3>
-      <p>We demo everything to you. You request changes. We fix until perfect.</p>
+      <p>We demo everything to you. Request changes. We fix until it's perfect.</p>
     </div>
-    <div class="how-card reveal d4">
-      <div class="how-num">04</div>
+    <div class="how-step reveal d4">
+      <div class="step-num">04</div>
       <h3>Go live. Make money.</h3>
-      <p>Share the number with your customers. Bot serves them 24/7 automatically.</p>
+      <p>Share the number. Bot serves customers 24/7 automatically.</p>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section id="pricing" class="pricing-bg">
-  <div class="sw">
-    <div class="s-tag reveal">pricing</div>
-    <h2 class="s-title reveal">Simple pricing.<br>No surprises.</h2>
-    <p class="s-sub reveal">Pay via M-Pesa. Cancel anytime. No hidden fees.</p>
+<section class="pricing" id="pricing">
+  <div class="section-header">
+    <div class="section-tag reveal">Pricing</div>
+    <h2 class="section-title reveal">Simple pricing.<br>No surprises.</h2>
+    <p class="section-sub reveal">Pay via M-Pesa. Cancel anytime. No hidden fees.</p>
   </div>
   <div class="pricing-grid">
     <div class="price-card reveal d1">
-      <div class="price-tier">STARTER</div>
-      <div class="price-amount"><sup>$</sup>40</div>
-      <div class="price-period">per month</div>
-      <div class="price-setup">+ $80 one-time setup</div>
-      <ul class="price-features">
-        <li class="on">1 platform (WhatsApp or Telegram)</li>
-        <li class="on">AI customer bot</li>
-        <li class="on">Menu & order handling</li>
-        <li class="on">Swahili & English</li>
-        <li class="on">Unlimited customers</li>
-        <li class="off">Business dashboard</li>
-        <li class="off">AI accounting</li>
-        <li class="off">Daily reports</li>
+      <div class="price-name">Starter</div>
+      <div class="price-num"><sup>$</sup>40</div>
+      <div class="price-mo">per month</div>
+      <div class="price-setup">+ $80 one-time setup fee</div>
+      <ul class="price-list">
+        <li class="yes">1 platform (WhatsApp or Telegram)</li>
+        <li class="yes">AI customer bot</li>
+        <li class="yes">Menu & order handling</li>
+        <li class="yes">Swahili & English</li>
+        <li class="yes">Unlimited customers</li>
+        <li class="no">Business dashboard</li>
+        <li class="no">AI accounting</li>
+        <li class="no">Daily reports</li>
       </ul>
-      <a href="https://wa.me/255749594915?text=I want the Starter plan" class="btn-ghost" style="width:100%;justify-content:center;">GET STARTED →</a>
+      <a href="https://wa.me/255749594915?text=I want the Starter plan - $40/month" class="btn-outline" style="width:100%;justify-content:center;">Get Started →</a>
     </div>
-    <div class="price-card hot reveal d2">
-      <div class="hot-badge">MOST POPULAR</div>
-      <div class="price-tier">PROFESSIONAL</div>
-      <div class="price-amount"><sup>$</sup>60</div>
-      <div class="price-period">per month</div>
-      <div class="price-setup">+ $150 one-time setup</div>
-      <ul class="price-features">
-        <li class="on">2 platforms (WhatsApp + Telegram)</li>
-        <li class="on">Everything in Starter</li>
-        <li class="on">Live business dashboard</li>
-        <li class="on">AI WhatsApp accounting</li>
-        <li class="on">Automatic daily reports</li>
-        <li class="on">Monthly PDF reports</li>
-        <li class="on">Priority support</li>
-        <li class="off">Instagram bot</li>
+    <div class="price-card featured reveal d2">
+      <div class="feat-badge">MOST POPULAR</div>
+      <div class="price-name">Professional</div>
+      <div class="price-num"><sup>$</sup>60</div>
+      <div class="price-mo">per month</div>
+      <div class="price-setup">+ $150 one-time setup fee</div>
+      <ul class="price-list">
+        <li class="yes">2 platforms (WhatsApp + Telegram)</li>
+        <li class="yes">Everything in Starter</li>
+        <li class="yes">Live business dashboard</li>
+        <li class="yes">AI WhatsApp accounting</li>
+        <li class="yes">Automatic daily reports</li>
+        <li class="yes">Monthly PDF reports</li>
+        <li class="yes">Priority support</li>
+        <li class="no">Instagram + Website bots</li>
       </ul>
-      <a href="https://wa.me/255749594915?text=I want the Professional plan" class="btn-main" style="width:100%;justify-content:center;">GET STARTED →</a>
+      <a href="https://wa.me/255749594915?text=I want the Professional plan - $60/month" class="btn-purple" style="width:100%;justify-content:center;">Get Started →</a>
     </div>
     <div class="price-card reveal d3">
-      <div class="price-tier">ENTERPRISE</div>
-      <div class="price-amount"><sup>$</sup>100</div>
-      <div class="price-period">per month</div>
-      <div class="price-setup">+ $300 one-time setup</div>
-      <ul class="price-features">
-        <li class="on">All 4 platforms</li>
-        <li class="on">Everything in Professional</li>
-        <li class="on">Instagram DM bot</li>
-        <li class="on">Website chatbot</li>
-        <li class="on">Branded WA number</li>
-        <li class="on">Bank-ready loan reports</li>
-        <li class="on">Dedicated support line</li>
-        <li class="on">Monthly strategy call</li>
+      <div class="price-name">Enterprise</div>
+      <div class="price-num"><sup>$</sup>100</div>
+      <div class="price-mo">per month</div>
+      <div class="price-setup">+ $300 one-time setup fee</div>
+      <ul class="price-list">
+        <li class="yes">All 4 platforms</li>
+        <li class="yes">Everything in Professional</li>
+        <li class="yes">Instagram DM bot</li>
+        <li class="yes">Website chatbot</li>
+        <li class="yes">Branded WhatsApp number</li>
+        <li class="yes">Bank-ready loan reports</li>
+        <li class="yes">Dedicated support line</li>
+        <li class="yes">Monthly strategy call</li>
       </ul>
-      <a href="https://wa.me/255749594915?text=I want the Enterprise plan" class="btn-ghost" style="width:100%;justify-content:center;">GET STARTED →</a>
+      <a href="https://wa.me/255749594915?text=I want the Enterprise plan - $100/month" class="btn-outline" style="width:100%;justify-content:center;">Get Started →</a>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div>
-      <div class="s-tag reveal">contact</div>
-      <h2 class="s-title reveal">Ready to<br>automate?</h2>
-      <div class="contact-info">
-        <div class="c-item reveal d1">
-          <div class="c-icon">📱</div>
+<section class="contact" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <div class="section-tag reveal">Contact Us</div>
+      <h2 class="section-title reveal">Ready to<br>automate?</h2>
+      <p class="section-sub reveal" style="margin-top:16px;">Message us on WhatsApp and we'll reply within 2 hours.</p>
+      <div class="contact-items">
+        <div class="ci reveal d1">
+          <div class="ci-icon">📱</div>
           <div>
-            <div class="c-label">WHATSAPP</div>
-            <div class="c-val">+255 749 594 915</div>
+            <div class="ci-label">WhatsApp</div>
+            <div class="ci-val">+255 749 594 915</div>
           </div>
         </div>
-        <div class="c-item reveal d2">
-          <div class="c-icon">📧</div>
+        <div class="ci reveal d2">
+          <div class="ci-icon">📧</div>
           <div>
-            <div class="c-label">EMAIL</div>
-            <div class="c-val">tumainikimboi0@gmail.com</div>
+            <div class="ci-label">Email</div>
+            <div class="ci-val">tumainikimboi0@gmail.com</div>
           </div>
         </div>
-        <div class="c-item reveal d3">
-          <div class="c-icon">📍</div>
+        <div class="ci reveal d3">
+          <div class="ci-icon">📍</div>
           <div>
-            <div class="c-label">LOCATION</div>
-            <div class="c-val">Dar es Salaam, Tanzania 🇹🇿</div>
+            <div class="ci-label">Location</div>
+            <div class="ci-val">Dar es Salaam, Tanzania 🇹🇿</div>
           </div>
         </div>
-        <div class="c-item reveal d4">
-          <div class="c-icon">⏰</div>
+        <div class="ci reveal d4">
+          <div class="ci-icon">⏰</div>
           <div>
-            <div class="c-label">RESPONSE TIME</div>
-            <div class="c-val">Within 2 hours</div>
+            <div class="ci-label">Response Time</div>
+            <div class="ci-val">Within 2 hours</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="contact-form reveal-right">
-      <div class="f-row">
+    <div class="form reveal-r">
+      <div class="form-row">
         <div class="fg">
-          <label>YOUR NAME</label>
+          <label>Your Name</label>
           <input type="text" placeholder="John Magufuli">
         </div>
         <div class="fg">
-          <label>WHATSAPP</label>
+          <label>WhatsApp</label>
           <input type="tel" placeholder="+255 7XX XXX XXX">
         </div>
       </div>
       <div class="fg">
-        <label>BUSINESS TYPE</label>
+        <label>Business Type</label>
         <select>
           <option>Restaurant / Food</option>
           <option>Pharmacy / Dawa</option>
@@ -1088,7 +862,7 @@ footer p{font-size:12px;color:var(--muted2);font-family:'JetBrains Mono',monospa
         </select>
       </div>
       <div class="fg">
-        <label>PLATFORM NEEDED</label>
+        <label>Platform Needed</label>
         <select>
           <option>WhatsApp only</option>
           <option>Telegram only</option>
@@ -1098,7 +872,7 @@ footer p{font-size:12px;color:var(--muted2);font-family:'JetBrains Mono',monospa
         </select>
       </div>
       <div class="fg">
-        <label>PACKAGE</label>
+        <label>Package</label>
         <select>
           <option>Starter — $40/month</option>
           <option>Professional — $60/month</option>
@@ -1107,66 +881,32 @@ footer p{font-size:12px;color:var(--muted2);font-family:'JetBrains Mono',monospa
         </select>
       </div>
       <div class="fg">
-        <label>MESSAGE (OPTIONAL)</label>
-        <textarea placeholder="Tell us about your business..."></textarea>
+        <label>Message (Optional)</label>
+        <textarea placeholder="Tell us about your business and what you need..."></textarea>
       </div>
-      <a href="https://wa.me/255749594915?text=Hello KimbsBot! I want to automate my business." class="btn-main" style="justify-content:center;">→ SEND VIA WHATSAPP</a>
+      <a href="https://wa.me/255749594915?text=Hello KimbsBot! I want to automate my business." class="btn-purple" style="justify-content:center;width:100%;">🚀 Send via WhatsApp</a>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">KIMBS<span style="color:var(--text)">BOT</span></div>
+  <div class="logo">KIMBS<span style="color:#fff">BOT</span></div>
   <p>© 2026 KimbsBot — Built in Tanzania 🇹🇿</p>
-  <p>AI_POWERED // ALWAYS_ON // ANY_PLATFORM</p>
+  <p style="color:rgba(180,0,255,0.5)">AI POWERED // ALWAYS ON // ANY PLATFORM</p>
 </footer>
 
-<!-- FLOATING WA -->
-<a href="https://wa.me/255749594915" class="wa-float" target="_blank">💬</a>
+<!-- WA BUTTON -->
+<a href="https://wa.me/255749594915" class="wa-btn" target="_blank">💬</a>
 
 <script>
-// CUSTOM CURSOR
-const cursor = document.getElementById('cursor');
-const trail = document.getElementById('trail');
-let mx=0,my=0,tx=0,ty=0;
-
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX; my=e.clientY;
-  cursor.style.left=mx-6+'px';
-  cursor.style.top=my-6+'px';
-});
-
-setInterval(()=>{
-  tx+=(mx-tx)*0.15;
-  ty+=(my-ty)*0.15;
-  trail.style.left=tx-20+'px';
-  trail.style.top=ty-20+'px';
-},16);
-
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    cursor.style.transform='scale(2)';
-    trail.style.transform='scale(1.5)';
-  });
-  el.addEventListener('mouseleave',()=>{
-    cursor.style.transform='scale(1)';
-    trail.style.transform='scale(1)';
-  });
-});
-
 // SCROLL REVEAL
-const observer = new IntersectionObserver((entries)=>{
+const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-    }
+    if(e.isIntersecting) e.target.classList.add('show');
   });
 },{threshold:0.1});
-
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>{
-  observer.observe(el);
-});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
 
 // SMOOTH SCROLL
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -1175,17 +915,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     const t=document.querySelector(a.getAttribute('href'));
     if(t) t.scrollIntoView({behavior:'smooth'});
   });
-});
-
-// HERO TEXT ANIMATION
-document.querySelectorAll('.hero h1 .line1,.hero h1 .line2,.hero h1 .line3').forEach((el,i)=>{
-  el.style.opacity='0';
-  el.style.transform='translateY(30px)';
-  el.style.transition=`all 0.8s cubic-bezier(0.16,1,0.3,1) ${0.3+i*0.15}s`;
-  setTimeout(()=>{
-    el.style.opacity='1';
-    el.style.transform='translateY(0)';
-  },100);
 });
 </script>
 </body>
